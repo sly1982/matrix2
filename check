@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final Step</title>
+    <style>
+        body {
+            background-color: black;
+            color: green;
+            font-family: 'Courier New', Courier, monospace;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .matrix {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: black;
+            color: green;
+            overflow: hidden;
+            z-index: -1;
+        }
+        .matrix span {
+            position: absolute;
+            white-space: nowrap;
+            user-select: none;
+            font-size: 20px;
+            animation: fall linear infinite;
+        }
+        @keyframes fall {
+            0% {
+                transform: translateY(-100%);
+            }
+            100% {
+                transform: translateY(100vh);
+            }
+        }
+        .container {
+            text-align: center;
+            padding: 20px;
+        }
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        input {
+            font-size: 1.5rem;
+            padding: 10px;
+            border: 2px solid green;
+            background: black;
+            color: green;
+            outline: none;
+            width: 80%;
+            max-width: 300px;
+        }
+        #message {
+            margin-top: 20px;
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="matrix" id="matrix"></div>
+    <div class="container">
+        <h1>FINAL STEP</h1>
+        <input type="text" id="codeInput" placeholder="Enter secret code">
+        <div id="message"></div>
+    </div>
+
+    <script>
+        document.getElementById('codeInput').addEventListener('input', function() {
+            const code = this.value;
+            const message = document.getElementById('message');
+            if (code === '506') {
+                message.textContent = 'MISSION ACCOMPLISHED';
+            } else if (code.length >= 3) {
+                message.textContent = 'ERROR';
+            } else {
+                message.textContent = '';
+            }
+        });
+
+        function createMatrixEffect() {
+            const matrix = document.getElementById('matrix');
+            for (let i = 0; i < 100; i++) {
+                const span = document.createElement('span');
+                span.textContent = Math.random() > 0.5 ? '1' : '0';
+                span.style.left = `${Math.random() * 100}vw`;
+                span.style.animationDuration = `${Math.random() * 3 + 2}s`;
+                matrix.appendChild(span);
+            }
+        }
+
+        createMatrixEffect();
+        setInterval(createMatrixEffect, 5000);
+    </script>
+</body>
+</html>
